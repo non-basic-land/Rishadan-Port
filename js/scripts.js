@@ -1,3 +1,5 @@
 $(document).ready(function () {
-    console.log('ready');
+    $.get('http://www.marktplaats.nl/z/hobby-en-vrije-tijd/verzamelkaartspellen-magic-the-gathering/magic-the-gathering.html?query=magic%20the%20gathering&categoryId=919&sortBy=standaard&sortOrder=decreasing', function (html) {
+        console.log(html);
+    }, 'html');
 });
