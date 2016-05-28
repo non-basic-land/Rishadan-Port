@@ -1,0 +1,3 @@
+[submodule "actionscript-notification-engine"]
+	path = actionscript-notification-engine
+	url = git@github.com:charlesbihis/actionscript-notification-engine.git
