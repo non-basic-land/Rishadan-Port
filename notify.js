@@ -2,7 +2,8 @@ var notifier = require('node-notifier');
 
 notifier.notify({
   'title': 'Rishadan Port opens',
-  'message': 'Now polling for changes'
+  'message': 'Now polling for changes',
+  'sound': true
 });
 
 var request = require('request'),
@@ -48,7 +49,8 @@ function timedPoll() {
 
             notifier.notify({
               'title': 'Arrived at Rishadan Port',
-              'message': titleStr
+              'message': titleStr,
+              'sound': true
             });
         });
     })
