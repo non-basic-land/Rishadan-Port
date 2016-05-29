@@ -1,0 +1,13 @@
+{
+  "name": "RishadanPort",
+  "version": "0.0.1",
+  "description": "A notifier for changes in a webpage",
+  "main": "index.html",
+  "dependencies": {
+    "node-notifier": "^4.6.0",
+    "cheerio": "^0.20.0",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {},
+  "author": "non-basic-land"
+}
