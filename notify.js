@@ -27,6 +27,14 @@ searchPages.push({
     linkSelector: 'a.listed-adv-item-link'
 });
 
+searchPages.push({
+    website: 'kapaza.be',
+    url: 'http://www.kapaza.be/nl/li?w=3&q=magic%20the%20gathering',
+    itemSelector: '.ad_listing_container',
+    titleSelector: '.listing_infos h4',
+    linkSelector: '.price_and_links_container a'
+});
+
 var foundResults = [];
 
 function initialPoll() {
