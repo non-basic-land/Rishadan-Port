@@ -5,3 +5,5 @@ Simple nw.js/node application that crawls webpages to search for new Magic the G
 Must be packaged or ran with [NW.js](https://github.com/nwjs/nw.js)
 
 Also you must run `npm install` in the root of the project to install the dependencies.
+
+Use `node build.js` to build the packages for the targetted platforms
