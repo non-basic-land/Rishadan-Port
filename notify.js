@@ -30,9 +30,17 @@ searchPages.push({
 searchPages.push({
     website: 'kapaza.be',
     url: 'http://www.kapaza.be/nl/li?w=3&q=magic%20the%20gathering',
-    itemSelector: '.ad_listing_container',
+    itemSelector: '.listing li',
     titleSelector: '.listing_infos h4',
     linkSelector: 'a'
+});
+
+searchPages.push({
+    website: 'mtgstocks.com',
+    url: 'http://www.mtgstocks.com/interests',
+    itemSelector: '#interests tr',
+    titleSelector: '#interests tr',
+    linkSelector: 'a.screenshot'
 });
 
 var foundResults = [];
@@ -46,7 +54,11 @@ function initialPoll() {
                 var $ = cheerio.load(body);
 
                 $(searchPage.itemSelector).each(function () {
-                    var titleStr = $(this).find(searchPage.titleSelector).text();
+                    if (searchPage.titleSelector === searchPage.itemSelector) {
+                        var titleStr = $(this).text();
+                    } else {
+                        var titleStr = $(this).find(searchPage.titleSelector).text();
+                    }
                     var urlStr = $(this).find(searchPage.linkSelector).attr('href');
                     var ul = document.getElementById("results-container");
                     var li = document.createElement("li");
@@ -75,7 +87,11 @@ function timedPoll() {
         var $ = cheerio.load(body);
 
         $(searchPage.itemSelector).each(function () {
-            var titleStr = $(this).find(searchPage.titleSelector).text();
+            if (searchPage.titleSelector === searchPage.itemSelector) {
+                var titleStr = $(this).text();
+            } else {
+                var titleStr = $(this).find(searchPage.titleSelector).text();
+            }
             var urlStr = $(this).find(searchPage.linkSelector).attr('href');
             for (var s = 0; s < foundResults.length; s++) {
                 if (foundResults[s] == titleStr) {
