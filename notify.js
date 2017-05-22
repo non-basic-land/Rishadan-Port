@@ -28,14 +28,6 @@ searchPages.push({
 });
 
 searchPages.push({
-    website: 'kapaza.be',
-    url: 'http://www.kapaza.be/nl/li?w=3&q=magic%20the%20gathering',
-    itemSelector: '.listing li',
-    titleSelector: '.listing_infos h4',
-    linkSelector: 'a'
-});
-
-searchPages.push({
     website: 'mtgstocks.com',
     url: 'http://www.mtgstocks.com/interests',
     itemSelector: '#interests tr',
@@ -113,4 +105,4 @@ function timedPoll() {
     });
 };
 
-setInterval(timedPoll, 162029);
+setInterval(timedPoll, 122029);
