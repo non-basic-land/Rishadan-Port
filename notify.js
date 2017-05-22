@@ -9,6 +9,14 @@ notifier.notify({
 var request = require('request'),
     cheerio = require('cheerio');
 
+Date.prototype.today = function () {
+    return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+}
+
+Date.prototype.timeNow = function () {
+     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+}
+
 var searchPages = [];
 
 searchPages.push({
@@ -27,12 +35,30 @@ searchPages.push({
     linkSelector: 'a.listed-adv-item-link'
 });
 
+/*
 searchPages.push({
     website: 'mtgstocks.com',
     url: 'http://www.mtgstocks.com/interests',
     itemSelector: '#interests tr',
     titleSelector: '#interests tr',
     linkSelector: 'a.screenshot'
+});
+*/
+
+searchPages.push({
+    website: 'mtgfinance subreddit',
+    url: 'https://www.reddit.com/r/mtgfinance/',
+    itemSelector: '.thing',
+    titleSelector: '.title a',
+    linkSelector: '.title a'
+});
+
+searchPages.push({
+    website: 'quietspeculation.com/',
+    url: 'http://www.quietspeculation.com/',
+    itemSelector: '.article-wrap',
+    titleSelector: 'h3',
+    linkSelector: '.article-read-more a'
 });
 
 var foundResults = [];
@@ -54,7 +80,10 @@ function initialPoll() {
                     var urlStr = $(this).find(searchPage.linkSelector).attr('href');
                     var ul = document.getElementById("results-container");
                     var li = document.createElement("li");
-                    li.innerHTML = searchPage.website + ': <a target="_blank" href="' + urlStr + '">' + titleStr + '</a>';
+                    li.innerHTML = '<div>' + searchPage.website + ': <b>' + titleStr + '</b>' + '</div>' +
+                        '<div>Date: ' + new Date().today() + " -- Time: " + new Date().timeNow() + '</div>' +
+                        '<div><a href="'+urlStr+'">'+urlStr+'</a>' + '</div>' +
+                        '<div>&nbsp;</div>';
                     ul.appendChild(li);
                     foundResults.push(titleStr);
                 });
@@ -92,7 +121,10 @@ function timedPoll() {
             }
             var ul = document.getElementById("results-container");
             var li = document.createElement("li");
-            li.innerHTML = searchPage.website + ': <a target="_blank" href="' + urlStr + '">' + titleStr + '</a>';
+            li.innerHTML = '<div>' + searchPage.website + ': <b>' + titleStr + '</b>' + '</div>' +
+                '<div>Date: ' + new Date().today() + " -- Time: " + new Date().timeNow() + '</div>' +
+                '<div><a href="'+urlStr+'">'+urlStr+'</a>' + '</div>' +
+                '<div>&nbsp;</div>';
             ul.insertBefore(li, ul.childNodes[0]);
             foundResults.push(titleStr);
 
