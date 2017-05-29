@@ -22,6 +22,7 @@ var searchPages = [];
 searchPages.push({
     website: 'marktplaats.nl',
     url: 'http://www.marktplaats.nl/z/hobby-en-vrije-tijd/verzamelkaartspellen-magic-the-gathering/magic-the-gathering.html?query=magic%20the%20gathering&categoryId=919&sortBy=standaard&sortOrder=decreasing',
+    baseUrl: 'http://www.marktplaats.nl',
     itemSelector: '.search-result.defaultSnippet',
     titleSelector: '.mp-listing-title',
     linkSelector: 'h2.heading a'
@@ -30,6 +31,7 @@ searchPages.push({
 searchPages.push({
     website: '2dehands.be',
     url: 'http://www.2dehands.be/verzamelen/cardgames/magic-the-gathering/2/magic/?locale=all',
+    baseUrl: 'http://www.2dehands.be',
     itemSelector: '.search-result .listed-adv-item',
     titleSelector: '.listed-item-description h3',
     linkSelector: 'a.listed-adv-item-link'
@@ -39,6 +41,7 @@ searchPages.push({
 searchPages.push({
     website: 'mtgstocks.com',
     url: 'http://www.mtgstocks.com/interests',
+    baseUrl: 'http://www.mtgstocks.com',
     itemSelector: '#interests tr',
     titleSelector: '#interests tr',
     linkSelector: 'a.screenshot'
@@ -48,6 +51,7 @@ searchPages.push({
 searchPages.push({
     website: 'mtgfinance subreddit',
     url: 'https://www.reddit.com/r/mtgfinance/',
+    baseUrl: 'https://www.reddit.com',
     itemSelector: '.thing',
     titleSelector: '.title a',
     linkSelector: '.title a'
@@ -56,12 +60,24 @@ searchPages.push({
 searchPages.push({
     website: 'quietspeculation.com/',
     url: 'http://www.quietspeculation.com/',
+    baseUrl: 'http://www.quietspeculation.com',
     itemSelector: '.article-wrap',
     titleSelector: 'h3',
     linkSelector: '.article-read-more a'
 });
 
 var foundResults = [];
+
+function createLi(searchPage, titleStr, urlStr) {
+    if (urlStr.indexOf('http') !== 0 && urlStr.indexOf('/') === 0) {
+        urlStr = searchPage.baseUrl + urlStr;
+    }
+    var li = document.createElement("li");
+    li.innerHTML = '<div>' + searchPage.website + ': <b>' + titleStr + '</b>' + ' -- Date: ' + new Date().today() + " -- Time: " + new Date().timeNow() + '</div>' +
+        '<div><a href="'+urlStr+'">'+urlStr+'</a>' + '</div>' +
+        '<div>&nbsp;</div>';
+    return li;
+}
 
 function initialPoll() {
 
@@ -79,12 +95,7 @@ function initialPoll() {
                     }
                     var urlStr = $(this).find(searchPage.linkSelector).attr('href');
                     var ul = document.getElementById("results-container");
-                    var li = document.createElement("li");
-                    li.innerHTML = '<div>' + searchPage.website + ': <b>' + titleStr + '</b>' + '</div>' +
-                        '<div>Date: ' + new Date().today() + " -- Time: " + new Date().timeNow() + '</div>' +
-                        '<div><a href="'+urlStr+'">'+urlStr+'</a>' + '</div>' +
-                        '<div>&nbsp;</div>';
-                    ul.appendChild(li);
+                    ul.appendChild(createLi(searchPage, titleStr, urlStr));
                     foundResults.push(titleStr);
                 });
             });
@@ -120,12 +131,7 @@ function timedPoll() {
                 }
             }
             var ul = document.getElementById("results-container");
-            var li = document.createElement("li");
-            li.innerHTML = '<div>' + searchPage.website + ': <b>' + titleStr + '</b>' + '</div>' +
-                '<div>Date: ' + new Date().today() + " -- Time: " + new Date().timeNow() + '</div>' +
-                '<div><a href="'+urlStr+'">'+urlStr+'</a>' + '</div>' +
-                '<div>&nbsp;</div>';
-            ul.insertBefore(li, ul.childNodes[0]);
+            ul.insertBefore(createLi(searchPage, titleStr, urlStr), ul.childNodes[0]);
             foundResults.push(titleStr);
 
             notifier.notify({
