@@ -74,7 +74,7 @@ function createLi(searchPage, titleStr, urlStr) {
     }
     var li = document.createElement("li");
     li.innerHTML = '<div>' + searchPage.website + ': <b>' + titleStr + '</b>' + ' -- Date: ' + new Date().today() + " -- Time: " + new Date().timeNow() + '</div>' +
-        '<div><a href="'+urlStr+'">'+urlStr+'</a>' + '</div>' +
+        '<div><a href="'+urlStr+'" target="_blank">'+urlStr+'</a>' + '</div>' +
         '<div>&nbsp;</div>';
     return li;
 }
