@@ -93,6 +93,11 @@ function initialPoll() {
                     } else {
                         var titleStr = $(this).find(searchPage.titleSelector).text();
                     }
+
+                    if (titleStr.toLowerCase().indexOf('collectie') > -1 || titleStr.toLowerCase().indexOf('verzameling') > -1) {
+                        document.getElementById('alarm').play();
+                    }
+
                     var urlStr = $(this).find(searchPage.linkSelector).attr('href');
                     var ul = document.getElementById("results-container");
                     ul.appendChild(createLi(searchPage, titleStr, urlStr));
@@ -134,6 +139,10 @@ function timedPoll() {
             ul.insertBefore(createLi(searchPage, titleStr, urlStr), ul.childNodes[0]);
             foundResults.push(titleStr);
 
+            if (titleStr.toLowerCase().indexOf('collectie') > -1 || titleStr.toLowerCase().indexOf('verzameling') > -1) {
+                document.getElementById('alarm').play();
+            }
+
             notifier.notify({
               'title': 'Arrived at ' + searchPage.website,
               'message': titleStr,
@@ -144,3 +153,7 @@ function timedPoll() {
 };
 
 setInterval(timedPoll, 122029);
+
+document.body.addEventListener('click', function (e) {
+    document.getElementById('alarm').pause();
+});

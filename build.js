@@ -1,6 +1,6 @@
 var NwBuilder = require('nw-builder');
 var nw = new NwBuilder({
-    files: ['./package.json', './notify.js', './index.html', './node_modules/**/*'],
+    files: ['./package.json', './notify.js', './index.html', './node_modules/**/*', './alarm.ogg'],
     platforms: ['osx64', 'win64'],
     version: '0.18.4'
 });
