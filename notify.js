@@ -121,7 +121,10 @@ function timedPoll() {
     }
 
     request(searchPage.url, function (error, response, body) {
+
         var $ = cheerio.load(body);
+
+        var hasResult = false;
 
         $(searchPage.itemSelector).each(function () {
             if (searchPage.titleSelector === searchPage.itemSelector) {
@@ -148,7 +151,13 @@ function timedPoll() {
               'message': titleStr,
               'sound': true
             });
+
+            hasResult = true;
         });
+
+        if (hasResult && (searchPage.website.indexOf('quietspeculation') > -1 || searchPage.website.indexOf('mtgfinance') > -1)) {
+            document.getElementById('quiet').play();
+        }
     });
 };
 
