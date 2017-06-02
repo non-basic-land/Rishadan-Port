@@ -93,11 +93,6 @@ function initialPoll() {
                     } else {
                         var titleStr = $(this).find(searchPage.titleSelector).text();
                     }
-
-                    if (titleStr.toLowerCase().indexOf('collectie') > -1 || titleStr.toLowerCase().indexOf('verzameling') > -1) {
-                        document.getElementById('alarm').play();
-                    }
-
                     var urlStr = $(this).find(searchPage.linkSelector).attr('href');
                     var ul = document.getElementById("results-container");
                     ul.appendChild(createLi(searchPage, titleStr, urlStr));
