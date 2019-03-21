@@ -72,9 +72,13 @@ function createLi(searchPage, titleStr, urlStr) {
     if (urlStr.indexOf('http') !== 0 && urlStr.indexOf('/') === 0) {
         urlStr = searchPage.baseUrl + urlStr;
     }
+    var ul = document.getElementById("results-container");
+    var liId = 'RESULTID' + ((ul.hasChildNodes()) ? ul.childNodes.length : 0);
     var li = document.createElement("li");
+    li.id = liId;
     li.innerHTML = '<div>' + searchPage.website + ': <b>' + titleStr + '</b>' + ' -- Date: ' + new Date().today() + " -- Time: " + new Date().timeNow() + '</div>' +
         '<div><a href="'+urlStr+'" target="_blank">'+urlStr+'</a>' + '</div>' +
+        '<div><a href="javascript:saveToFavorites(\''+liId+'\')">Opslaan in favorieten</a></div>' +
         '<div>&nbsp;</div>';
     return li;
 }
@@ -161,3 +165,59 @@ setInterval(timedPoll, 122029);
 document.body.addEventListener('click', function (e) {
     document.getElementById('alarm').pause();
 });
+
+var favoritesVisible = false;
+
+function toggleFavorites() {
+
+    if (favoritesVisible) {
+        document.getElementById('favorites-container').style.display = 'none';
+        document.getElementById('favorites-link').innerHTML = 'Favorieten';
+        document.getElementById('results-container').style.display = 'block';
+        favoritesVisible = false;
+    } else {
+        document.getElementById('favorites-container').style.display = 'block'
+        document.getElementById('favorites-link').innerHTML = 'Resultaten';
+        document.getElementById('results-container').style.display = 'none';
+        favoritesVisible = true;
+    }
+}
+
+function saveToFavorites(oldLiId) {
+    var oldLi = document.getElementById(oldLiId);
+    var liHtml = oldLi.innerHTML;
+    var ul = document.getElementById('favorites-container');
+    var liId = 'FAVORITEID' + ((ul.hasChildNodes()) ? ul.childNodes.length : 0);
+    var li = document.createElement('li');
+    li.id = liId;
+    liHtml = liHtml.replace(oldLiId, oldLiId + "','" + liId);
+    liHtml = liHtml.replace('saveToFavorites', 'removeFromFavorites');
+    liHtml = liHtml.replace('Opslaan in favorieten', 'Verwijderen uit favorieten');
+    li.innerHTML = liHtml;
+    ul.insertBefore(li, ul.childNodes[0]);
+    oldLi.innerHTML = liHtml;
+    // save
+    var ulHtml = ul.innerHTML;
+    localStorage.setItem('favorites', ulHtml);
+}
+
+function removeFromFavorites(oldLiId, newLiId) {
+    var ul = document.getElementById('favorites-container');
+    ul.removeChild(document.getElementById(newLiId));
+    var oldLi = document.getElementById(oldLiId);
+    var liHtml = oldLi.innerHTML;
+    liHtml = liHtml.replace(oldLiId + "','" + newLiId, oldLiId);
+    liHtml = liHtml.replace('removeFromFavorites', 'saveToFavorites');
+    liHtml = liHtml.replace('Verwijderen uit favorieten', 'Opslaan in favorieten');
+    oldLi.innerHTML = liHtml;
+    // save
+    var ulHtml = ul.innerHTML;
+    localStorage.setItem('favorites', ulHtml);
+}
+
+// load
+var favoritesContainerHtml = localStorage.getItem('favorites');
+var favoritesContainer = document.getElementById('favorites-container');
+if (favoritesContainerHtml) {
+    favoritesContainer.innerHTML = favoritesContainerHtml;
+}
