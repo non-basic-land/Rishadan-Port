@@ -2,9 +2,11 @@
   "name": "RishadanPort",
   "version": "0.0.1",
   "description": "A notifier for changes in a webpage",
+  "license": "MIT",
+  "repository": "git@github.com:non-basic-land/Rishadan-Port.git",
   "main": "index.html",
   "scripts": {
-      "build": "node build.js"
+    "build": "node build.js"
   },
   "dependencies": {
     "node-notifier": "^4.6.0",
