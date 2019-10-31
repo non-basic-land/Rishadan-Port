@@ -19,6 +19,7 @@ Date.prototype.timeNow = function () {
 
 var searchPages = [];
 
+/*
 searchPages.push({
     website: 'marktplaats.nl',
     url: 'http://www.marktplaats.nl/z/hobby-en-vrije-tijd/verzamelkaartspellen-magic-the-gathering/magic-the-gathering.html?query=magic%20the%20gathering&categoryId=919&sortBy=standaard&sortOrder=decreasing',
@@ -27,7 +28,18 @@ searchPages.push({
     titleSelector: '.mp-listing-title',
     linkSelector: 'h2.heading a'
 });
+*/
 
+searchPages.push({
+    website: 'marktplaats.nl',
+    url: 'https://www.marktplaats.nl/l/hobby-en-vrije-tijd/verzamelkaartspellen-magic-the-gathering/q/magic+the+gathering/',
+    baseUrl: 'https://www.marktplaats.nl',
+    itemSelector: '.mp-Listing--list-item',
+    titleSelector: '.mp-Listing-title',
+    linkSelector: 'a.mp-Listing-coverLink'
+});
+
+/*
 searchPages.push({
     website: '2dehands.be',
     url: 'http://www.2dehands.be/verzamelen/cardgames/magic-the-gathering/2/magic/?locale=all',
@@ -35,6 +47,16 @@ searchPages.push({
     itemSelector: '.search-result .listed-adv-item',
     titleSelector: '.listed-item-description h3',
     linkSelector: 'a.listed-adv-item-link'
+});
+*/
+
+searchPages.push({
+    website: '2dehands.be',
+    url: 'https://www.2dehands.be/l/hobby-en-vrije-tijd/verzamelkaartspellen-magic-the-gathering/q/magic/',
+    baseUrl: 'https://www.2dehands.be',
+    itemSelector: '.mp-Listing--list-item',
+    titleSelector: '.mp-Listing-title',
+    linkSelector: 'a.mp-Listing-coverLink'
 });
 
 /*
@@ -48,6 +70,7 @@ searchPages.push({
 });
 */
 
+/*
 searchPages.push({
     website: 'mtgfinance subreddit',
     url: 'https://www.reddit.com/r/mtgfinance/',
@@ -56,6 +79,8 @@ searchPages.push({
     titleSelector: '.title a',
     linkSelector: '.title a'
 });
+// became a modern webapp
+*/
 
 searchPages.push({
     website: 'quietspeculation.com/',
